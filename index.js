@@ -5,7 +5,7 @@ const restify  = require('restify'),
       dialogs  = require('./dialogs'),
       isChat   = process.env.NODE_ENV === 'production' || false,
       mongoUri = process.env.OPENSHIFT_MONGODB_DB_HOST ?
-                       `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.OPENSHIFT_MONGODB_DB_HOST}:${process.env.OPENSHIFT_MONGODB_DB_PORT}/jobby`
+                       `mongodb://${process.env.OPENSHIFT_MONGODB_DB_HOST}:${process.env.OPENSHIFT_MONGODB_DB_PORT}/jobby`
                        : config.MONGO;
 
 //=========================================================
