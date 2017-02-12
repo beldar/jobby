@@ -1,0 +1,63 @@
+const restify  = require('restify'),
+      builder  = require('botbuilder'),
+      mongoose = require('mongoose'),
+      config   = require('./config'),
+      dialogs  = require('./dialogs'),
+      isChat   = process.env.NODE_ENV === 'prod' || false,
+      mongoUri = process.env.OPENSHIFT_MONGODB_DB_HOST ?
+                       `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.OPENSHIFT_MONGODB_DB_HOST}:${process.env.OPENSHIFT_MONGODB_DB_PORT}/jobby`
+                       : config.MONGO;
+
+//=========================================================
+// DB Setup
+//=========================================================
+mongoose.connect(mongoUri);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'mongo connection error:'));
+db.once('open', function() {
+  console.log('Connected to mongo');
+});
+
+//=========================================================
+// Bot Setup
+//=========================================================
+let bot;
+
+if ( isChat ) {
+  // Setup Restify Server
+  const server = restify.createServer();
+  server.listen(process.env.port || process.env.PORT || 3978, function() {
+    console.log('%s listening to %s', server.name, server.url);
+  });
+  const connector = new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+  });
+  bot = new builder.UniversalBot(connector);
+  server.post('/api/messages', connector.listen());
+} else {
+  const connector = new builder.ConsoleConnector().listen();
+  bot = new builder.UniversalBot(connector);
+}
+
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+
+bot.dialog('/',[]);
+
+bot.dialog('/profile', dialogs.profile);
+
+bot.dialog('/recruiter', dialogs.recruiter);
+
+bot.dialog('/offer', dialogs.offer);
+
+bot.dialog('/developer', dialogs.developer);
+
+bot.dialog('/visitor', dialogs.visitor);
+
+bot.dialog('/firstRun', dialogs.firstRun);
+
+// Install First Run middleware and dialog
+bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/firstRun' }));
