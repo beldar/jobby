@@ -3,7 +3,7 @@ const restify  = require('restify'),
       mongoose = require('mongoose'),
       config   = require('./config'),
       dialogs  = require('./dialogs'),
-      isChat   = process.env.NODE_ENV === 'prod' || false,
+      isChat   = process.env.NODE_ENV === 'production' || false,
       mongoUri = process.env.OPENSHIFT_MONGODB_DB_HOST ?
                        `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.OPENSHIFT_MONGODB_DB_HOST}:${process.env.OPENSHIFT_MONGODB_DB_PORT}/jobby`
                        : config.MONGO;
@@ -35,6 +35,9 @@ if ( isChat ) {
   });
   bot = new builder.UniversalBot(connector);
   server.post('/api/messages', connector.listen());
+  server.get('/health', function( req, res ) {
+    res.send();
+  });
 } else {
   const connector = new builder.ConsoleConnector().listen();
   bot = new builder.UniversalBot(connector);
