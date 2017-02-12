@@ -26,7 +26,9 @@ let bot;
 if ( isChat ) {
   // Setup Restify Server
   const server = restify.createServer();
-  server.listen(process.env.port || process.env.PORT || 8080, function() {
+  const port   = (process.env.PORT || config.SERVER_PORT);
+  const ip     = (process.env.OPENSHIFT_NODEJS_IP || config.IP);
+  server.listen(port, ip, function() {
     console.log('%s listening to %s', server.name, server.url);
   });
   const connector = new builder.ChatConnector({
