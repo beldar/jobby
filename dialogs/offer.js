@@ -9,6 +9,7 @@ module.exports = [
 - No Angular roles of any kind please
 - Minimum salary of 500£ per day
 - Ideally a Lead position rather than just coder
+- He'll be available from the 1st of August
 
 If you have anything close to these specs, please refer this role first.`);
     builder.Prompts.choice(session, `What kind of offer is it?`, ['Permanent', 'Contract' ]);
@@ -17,6 +18,14 @@ If you have anything close to these specs, please refer this role first.`);
     const offerType = results.response.entity;
     session.userData.offerData = {};
     session.userData.offerData.offerType = offerType;
+    builder.Prompts.time(session, `When is the role due to start?`);
+  },
+  function( session, results ) {
+    session.userData.offerData.start = results.response;
+    builder.Prompts.text(session, `What is the duration of the role?`);
+  },
+  function( session, results ) {
+    session.userData.offerData.duration = results.response;
     builder.Prompts.text(session, `What is the maximum salary they can offer?`);
   },
   function( session, results ) {

@@ -13,5 +13,8 @@
     "botbuilder": "^3.2.3",
     "mongoose": "^4.8.2",
     "restify": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
