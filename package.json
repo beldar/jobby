@@ -10,7 +10,7 @@
   "author": "Marti Planellas",
   "license": "ISC",
   "dependencies": {
-    "botbuilder": "^3.2.3",
+    "botbuilder": "^3.9.0",
     "mongoose": "^4.8.2",
     "restify": "^4.1.1"
   },

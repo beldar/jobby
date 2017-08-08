@@ -12,8 +12,8 @@ const Role = mongoose.Schema({
     isLead   : Boolean,
     role     : String,
     company  : String,
-    start    : Schema.Types.Mixed,
-    duration : Schema.Types.Mixed
+    start    : mongoose.Schema.Types.Mixed,
+    duration : mongoose.Schema.Types.Mixed
   }]
 });
 
