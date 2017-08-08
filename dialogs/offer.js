@@ -3,13 +3,10 @@ const Role    = require('../models/role');
 
 module.exports = [
   function( session, results ) {
-    session.send(`Great! To save a bit of your and Marti's time, here's what he's currently looking for:
-- Contract role
+    session.send(`Great! To save a bit of your and Marti's time, here's what he might be interested in:
 - Ideally focused on React and/or Nodejs
 - No Angular roles of any kind please
-- Minimum salary of 500£ per day
-- Ideally a Lead position rather than just coder
-- He'll be available from the 1st of August
+- Ideally a Lead position or higher
 
 If you have anything close to these specs, please refer this role first.`);
     builder.Prompts.choice(session, `What kind of offer is it?`, ['Permanent', 'Contract' ]);
