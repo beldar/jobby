@@ -20,16 +20,6 @@ Can I begin by asking your full name?
       session.beginDialog('/recruiter');
     } else {
       session.send(`I'm afraid I can't help you then, this part of the dialog is under construction!`);
-      //builder.Prompts.confirm(session, `Are you a developer then?`);
     }
   }
-  // },
-  // function( session, results, next ) {
-  //   if (results.response) {
-  //     session.userData.isDeveloper = true;
-  //     session.beginDialog('/developer');
-  //   } else {
-  //     session.beginDialog('/visitor');
-  //   }
-  // }
 ];

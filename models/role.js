@@ -6,6 +6,7 @@ const Role = mongoose.Schema({
   isRecruiter: Boolean,
   company    : String,
   email      : String,
+  isFake     : Boolean,
   offers     : [{
     offerType: String,
     salary   : String,

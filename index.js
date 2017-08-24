@@ -58,10 +58,6 @@ bot.dialog('/recruiter', dialogs.recruiter);
 
 bot.dialog('/offer', dialogs.offer);
 
-bot.dialog('/developer', dialogs.developer);
-
-bot.dialog('/visitor', dialogs.visitor);
-
 bot.dialog('/firstRun', dialogs.firstRun);
 
 // Install First Run middleware and dialog

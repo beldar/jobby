@@ -17,9 +17,13 @@ If you have anything close to these specs, please refer this role first.`);
     session.userData.offerData.offerType = offerType;
     builder.Prompts.time(session, `When is the role due to start?`);
   },
-  function( session, results ) {
+  function( session, results, next ) {
     session.userData.offerData.start = results.response;
-    builder.Prompts.text(session, `What is the duration of the role?`);
+    if ( session.userData.offerData.offerType === 'Contract' ) {
+      builder.Prompts.text(session, `What is the duration of the role?`);
+    } else {
+      next();
+    }
   },
   function( session, results ) {
     session.userData.offerData.duration = results.response;
