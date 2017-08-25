@@ -4,9 +4,7 @@ const restify  = require('restify'),
       config   = require('./config'),
       dialogs  = require('./dialogs'),
       isChat   = process.env.NODE_ENV === 'production' || false,
-      mongoUri = process.env.OPENSHIFT_MONGODB_DB_HOST ?
-                       `mongodb://${process.env.OPENSHIFT_MONGODB_DB_USERNAME}:${process.env.OPENSHIFT_MONGODB_DB_PASSWORD}@${process.env.OPENSHIFT_MONGODB_DB_HOST}:${process.env.OPENSHIFT_MONGODB_DB_PORT}/jobby`
-                       : config.MONGO;
+      mongoUri = process.env.MONGO_URI || config.MONGO;
 
 //=========================================================
 // DB Setup
@@ -27,7 +25,7 @@ if ( isChat ) {
   // Setup Restify Server
   const server = restify.createServer();
   const port   = (process.env.PORT || config.SERVER_PORT);
-  const ip     = (process.env.OPENSHIFT_NODEJS_IP || config.IP);
+  const ip     = (process.env.IP || config.IP);
   server.listen(port, ip, function() {
     console.log('%s listening to %s', server.name, server.url);
   });
