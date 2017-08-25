@@ -10,7 +10,7 @@ Uses the open source [Microsoft Bot Framework](https://dev.botframework.com) to 
 
 It uses [Restify](http://restify.com/) to create a RESTful API server and [Mongoose](http://mongoosejs.com/) to model the DB documents.
 
-I hosted it all on [OpenShift](https://openshift.redhat.com) which offers free tier container machines where you can add *cartridges*, like a MongoDB cartridge and a RockMongo cartridge as well. But it could be hosted anywhere.
+I hosted it all on [Heroku](https://heroku.com) which offers free tier, and [mLab](https://mlab.com) for the MongoDB instance.
 
 When in production it acts as a RESTful API, when in a local environment acts as an interactive CLI application where you can talk to Jobby from the terminal and save the data on a local MongoDB instance.
 
@@ -33,11 +33,8 @@ Jobby needs some environmental variables to work properly.
 | Variable name | Description |
 | ------------- | ----------- |
 | NODE_ENV      | If the value is `production` the application will act as an API rest server, if its anything else it will act as an interactive CLI interface. |
-| OPENSHIFT_MONGODB_DB_HOST | MongoDB remote host address, if not defined the value of `MONGO` on `config.js` will be used (local DB) |
-| OPENSHIFT_MONGODB_DB_USERNAME | MongoDB remote username |
-| OPENSHIFT_MONGODB_DB_PASSWORD | MongoDB remote password |
-| OPENSHIFT_MONGODB_DB_PORT | MongoDB remote port |
-| OPENSHIFT_NODEJS_IP | IP used by the Restify application, if undefined it defaults to the value of `IP` on `config.js` |
+| MONGO_URI | MongoDB remote uri address, if not defined the value of `MONGO` on `config.js` will be used (local DB) |
+| IP | IP used by the Restify application, if undefined it defaults to the value of `IP` on `config.js` |
 | PORT | Port to be used by the Restify application, if undefined it defaults to the value of `SERVER_PORT` on `config.js` |
 | MICROSOFT_APP_ID | Bot framework App Id (get one [here](https://dev.botframework.com/bots))|
 | MICROSOFT_APP_PASSWORD | Bot framework password (get one [here](https://dev.botframework.com/bots))|
