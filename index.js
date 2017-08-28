@@ -56,7 +56,7 @@ if (process.env.CHATBASE_KEY) {
       .setAsTypeUser()
       .setPlatform(event.address.channelId)
       .setVersion(version)
-      .setTimestamp(new Date(event.timestamp).getTime())
+      .setTimestamp(new Date(event.timestamp).getTime().toString())
       .setMessage(event.text)
       .setUserId(event.address.user.id || event.user.id)
       .send()
