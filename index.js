@@ -52,7 +52,6 @@ if (process.env.CHATBASE_KEY) {
     botbuilder: function (session, next) {
       const event = session.message;
 
-      console.log(event.address.channelId, version, new Date(event.timestamp).getTime(), event.text, event.address.user.id || event.user.id);
       chatbase.newMessage()
       .setAsTypeUser()
       .setPlatform(event.address.channelId)

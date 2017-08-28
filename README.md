@@ -38,6 +38,7 @@ Jobby needs some environmental variables to work properly.
 | PORT | Port to be used by the Restify application, if undefined it defaults to the value of `SERVER_PORT` on `config.js` |
 | MICROSOFT_APP_ID | Bot framework App Id (get one [here](https://dev.botframework.com/bots))|
 | MICROSOFT_APP_PASSWORD | Bot framework password (get one [here](https://dev.botframework.com/bots))|
+| CHATBASE_KEY | Key for Chatbase, Google's bot analytics service (get one [here](https://www.chatbase.com)) |
 
 ## Install and run
 
