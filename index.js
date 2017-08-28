@@ -1,8 +1,10 @@
 const restify  = require('restify'),
       builder  = require('botbuilder'),
       mongoose = require('mongoose'),
+      chatbase = require('@google/chatbase'),
       config   = require('./config'),
       dialogs  = require('./dialogs'),
+      version  = require('./package.json').version,
       isChat   = process.env.NODE_ENV === 'production' || false,
       mongoUri = process.env.MONGO_URI || config.MONGO;
 
@@ -43,6 +45,40 @@ if ( isChat ) {
   bot = new builder.UniversalBot(connector);
 }
 
+if (process.env.CHATBASE_KEY) {
+  chatbase.setApiKey(process.env.CHATBASE_KEY);
+
+  bot.use({
+    botbuilder: function (session, next) {
+      const event = session.message;
+
+      console.log(event.address.channelId, version, new Date(event.timestamp).getTime(), event.text, event.address.user.id || event.user.id);
+      chatbase.newMessage()
+      .setAsTypeUser()
+      .setPlatform(event.address.channelId)
+      .setVersion(version)
+      .setTimestamp(new Date(event.timestamp).getTime())
+      .setMessage(event.text)
+      .setUserId(event.address.user.id || event.user.id)
+      .send()
+	    .catch(err => console.error(`Error sending data to Chatbase: `, err));
+
+      next();
+    },
+    send: function (event, next) {
+      chatbase.newMessage()
+      .setAsTypeAgent()
+      .setPlatform(event.address.channelId)
+      .setVersion(version)
+      .setMessage(event.text)
+      .setUserId(event.address.user.id)
+      .send()
+	    .catch(err => console.error(`Error sending data to Chatbase: `, err));
+
+      next();
+    }
+  });
+}
 
 //=========================================================
 // Bots Dialogs
