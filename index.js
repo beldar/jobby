@@ -62,6 +62,8 @@ if (process.env.CHATBASE_KEY) {
       .send()
 	    .catch(err => console.error(`Error sending data to Chatbase: `, err));
 
+      console.log(`Incoming message: ${event.text}`, event);
+
       next();
     },
     send: function (event, next) {
